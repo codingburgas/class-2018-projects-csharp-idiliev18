@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using aplusg.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace aplusg.Models
 
 		}
 		public DbSet<User> Users { get; set; }
+		public DbSet<LightSensor> lightSensors { get; set; }
+		public DbSet<MoistureSensor> moistureSensors { get; set; }
 	}
 }

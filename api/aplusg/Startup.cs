@@ -52,6 +52,9 @@ namespace aplusg
 
             app.UseAuthorization();
 
+            app.UseCors(options => options.WithOrigins(new string[] { "http://localhost:4200/", "http://localhost:25825/" }).AllowAnyMethod());
+            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
