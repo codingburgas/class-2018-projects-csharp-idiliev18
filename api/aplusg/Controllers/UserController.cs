@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using aplusg.Models;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,11 +14,17 @@ namespace aplusg.Controllers
 	[ApiController]
 	public class UserController : ControllerBase
 	{
+		private readonly AplusGDbContext _context;
+
+		public UserController(AplusGDbContext context)
+		{
+			_context = context;
+		}
 		// GET: api/<UserController>
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<ActionResult<IEnumerable<User>>> GetUsers()
 		{
-			return new string[] { "value1", "value2" };
+			return await _context.Users.ToListAsync();
 		}
 
 		// GET api/<UserController>/5
