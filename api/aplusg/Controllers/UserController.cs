@@ -5,6 +5,9 @@ using aplusg.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System.IO;
+using System.Text.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,23 +30,24 @@ namespace aplusg.Controllers
 			return await _context.Users.ToListAsync();
 		}
 
-		// GET api/<UserController>/5
+		// GET api/<UserController>/5 
 		[HttpGet("{id}")]
-		public string Get(int id)
+		public async Task<ActionResult<User>> Get(int id)
 		{
-			return "value";
+			User user = await _context.Users.FindAsync(id);
+
+			return (user is not null) ? user : NotFound();
 		}
 
 		// POST api/<UserController>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public async Task<ActionResult<User>> PostUser(User user)
 		{
-		}
+			await _context.Users.AddAsync(user);
+			await _context.SaveChangesAsync();
 
-		// PUT api/<UserController>/5
-		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
-		{
+			return CreatedAtAction("PostUser", new { id = user.Id }, user);
+
 		}
 
 		// DELETE api/<UserController>/5
