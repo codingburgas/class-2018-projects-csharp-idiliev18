@@ -1,0 +1,11 @@
+<form (ngSubmit)="createUser()">
+  <p>First Name</p>
+  <input type="text" name="firstName" [(ngModel)]="userData.firstName">
+  <p>Last Name</p>
+  <input type="text" name="lastName" [(ngModel)]="userData.lastName">
+  <p>Username</p>
+  <input type="text" name="username" [(ngModel)]="userData.username">
+  <p>Password</p>
+  <input type="password" name="password" [(ngModel)]="userData.PasswordHash">
+  <input type="submit" value="Predavam se">
+</form>
