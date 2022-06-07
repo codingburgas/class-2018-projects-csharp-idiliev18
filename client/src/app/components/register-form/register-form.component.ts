@@ -1,4 +1,42 @@
-import { RegisterService } from './../../services/register.service';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-register-form',
+  templateUrl: './register-form.component.html',
+  styleUrls: ['./register-form.component.css']
+})
+
+export class RegisterFormComponent {
+
+  registerForm = new FormGroup({
+      firstName: new FormControl(['', Validators.required]),
+      lastName: new FormControl(''),
+      email: new FormControl(''),
+      username: new FormControl(''),
+      password: new FormControl('')
+  });
+
+  onSubmit() {
+    // TODO: Use EventEmitter with form value
+    console.log(this.registerForm.value);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*import { RegisterService } from './../../services/register.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/interfaces/user';
 
@@ -8,6 +46,8 @@ import { User } from 'src/app/interfaces/user';
   styleUrls: ['./register-form.component.css']
 })
 export class RegisterFormComponent implements OnInit {
+
+
 
   constructor(private registerService: RegisterService) {}
 
@@ -20,8 +60,7 @@ export class RegisterFormComponent implements OnInit {
     password: '',
   }
 
-  ngOnInit(): void {
-  }
+ 
 
   createUser():void
   {
@@ -32,4 +71,10 @@ export class RegisterFormComponent implements OnInit {
 
   }
 
+  
+
+  ngOnInit(): void {
+  }
+
 }
+*/

@@ -1,11 +1,45 @@
-<form (ngSubmit)="createUser()">
-  <p>First Name</p>
-  <input type="text" name="firstName" [(ngModel)]="userData.firstName">
-  <p>Last Name</p>
-  <input type="text" name="lastName" [(ngModel)]="userData.lastName">
-  <p>Username</p>
-  <input type="text" name="username" [(ngModel)]="userData.username">
-  <p>Password</p>
-  <input type="password" name="password" [(ngModel)]="userData.password">
-  <input type="submit" value="Predavam se">
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+<label for="firstName">First Name: </label>
+<input id="firstName" type="text" formControlName="firstName">
+
+<label for="lastName">Last Name: </label>
+<input id="lastName" type="text" formControlName="lastName">
+
+<label for="email">Email: </label>
+<input id="email" type="email" formControlName="email">
+
+<label for="username">Username: </label>
+<input id="username" type="text" formControlName="username">
+
+<label for="password">Password: </label>
+<input id="password" type="password" formControlName="password">
+
+<p>Complete the form to enable button.</p>
+<button type="submit" [disabled]="!registerForm.valid">Submit</button>
 </form>
+
+<!-- <form (ngSubmit)="createUser()">
+  <input type="text" id="firstName" name="firstName" class="form-control"
+  required minlength="4" appForbiddenName="boba"
+  [(ngModel)]="userData.firstName" #name="ngModel">
+
+  <div *ngIf="name.invalid && (name.dirty || name.touched)"
+  class="alert">
+
+  <div *ngIf="name.errors?.['required']">
+  Name is required.
+  </div>
+  <div *ngIf="name.errors?.['minlength']">
+  Name must be at least 4 characters long.
+  </div>
+
+</div>
+  <p>Last Name</p>
+  <input type="text" name="lastName" [(ngModel)]="userData.lastName" class="form-control">
+  <p>Username</p>
+  <input type="text" name="username" [(ngModel)]="userData.username" class="form-control">
+  <p>Password</p>
+  <input type="password" name="password" [(ngModel)]="userData.password" class="form-control">
+  <input type="submit" value="Predavam se" class="form-control">
+</form> -->
