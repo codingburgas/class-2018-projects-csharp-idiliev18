@@ -14,12 +14,10 @@ export class RegisterFormComponent implements OnInit {
   users: User[] = [];
 
   userData:User = {
-    id: 1,
     firstName: '',
     lastName: '',
     username: '',
-    PasswordHash: '',
-    Salt: ''
+    password: '',
   }
 
   ngOnInit(): void {
@@ -28,7 +26,7 @@ export class RegisterFormComponent implements OnInit {
   createUser():void
   {
     console.log(this.userData);
-    //this.registerService.registerUser(this.userData).subscribe(user=>this.users.push(user));
+    this.registerService.registerUser(this.userData).subscribe(user=>this.users.push(user));
 
     console.log(this.users);
 

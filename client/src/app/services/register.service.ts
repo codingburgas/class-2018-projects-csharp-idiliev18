@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class RegisterService {
-  private apiUrl = 'http://localhost:25825/api/user';
+  private apiUrl = 'http://localhost:25825/api/User';
 
   constructor(private http: HttpClient) { }
 

@@ -27,7 +27,7 @@ namespace aplusg
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AplusGDbContext>(options => 
+            services.AddDbContext<AplusGDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
                 );
 
@@ -52,9 +52,9 @@ namespace aplusg
 
             app.UseAuthorization();
 
-            app.UseCors(options => options.WithOrigins(new string[] { "http://localhost:4200/", "http://localhost:25825/" }).AllowAnyMethod());
-            
+            app.UseCors(options => options.WithOrigins("http://localhost:4200/").AllowAnyMethod().AllowAnyHeader().AllowCredentials().SetIsOriginAllowed((x) => true));
 
+                
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
