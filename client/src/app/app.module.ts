@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { Validators } from '@angular/forms';
+
 
 
 
@@ -23,8 +23,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    Validators
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

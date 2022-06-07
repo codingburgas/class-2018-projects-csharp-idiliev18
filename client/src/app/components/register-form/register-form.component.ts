@@ -10,12 +10,37 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class RegisterFormComponent {
 
   registerForm = new FormGroup({
-      firstName: new FormControl(['', Validators.required]),
-      lastName: new FormControl(''),
+      firstName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(64)
+      ]),
+      lastName: new FormControl('',[
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(64)
+      ]),
       email: new FormControl(''),
-      username: new FormControl(''),
-      password: new FormControl('')
-  });
+      username: new FormControl('',[
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(64)
+      ]),
+      password: new FormControl('',[
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(64)
+      ])
+  }, { validators: Validators.required });
+
+  get firstName() { return this.registerForm.get('firstName'); }
+  get lastName() { return this.registerForm.get('lastName'); }
+  get username() { return this.registerForm.get('username'); }
+  get password() { return this.registerForm.get('password'); }
+
+
+
+
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
