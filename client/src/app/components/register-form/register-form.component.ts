@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { User } from 'src/app/interfaces/user';
+import { RegisterService } from './../../services/register.service';
 
 @Component({
   selector: 'app-register-form',
@@ -36,15 +38,18 @@ export class RegisterFormComponent {
   get firstName() { return this.registerForm.get('firstName'); }
   get lastName() { return this.registerForm.get('lastName'); }
   get username() { return this.registerForm.get('username'); }
+  get email() { return this.registerForm.get('email'); }
   get password() { return this.registerForm.get('password'); }
 
-
-
-
+  users: User[] = [];
+  
+  constructor(private registerService: RegisterService) {}
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.log(this.registerForm.value);
+    this.registerService.registerUser(this.registerForm.value).subscribe(user=>this.users.push(user));
+    console.log(this.users);
   }
 }
 

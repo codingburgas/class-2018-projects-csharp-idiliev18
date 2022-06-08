@@ -1,8 +1,13 @@
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 
-<label for="firstName">First Name: </label>
-<input type="text" id="firstName" class="form-control"
-formControlName="firstName" required>
+
+
+<div class="firstName">
+  <label class="firstName">First Name</label>
+  <div class="control">
+    <input class="input" type="text" placeholder="First Name" formControlName="firstName">
+  </div>
+</div>
 
 <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
     class="alert alert-danger">
@@ -18,8 +23,13 @@ formControlName="firstName" required>
   </div>
 </div>
 
-<label for="lastName">Last Name: </label>
-<input id="lastName" type="text" formControlName="lastName">
+
+<div class="lastName">
+  <label class="lastName">Last Name</label>
+  <div class="control">
+    <input class="input" type="text" placeholder="Last Name" formControlName="lastName">
+  </div>
+</div>
 
 <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
     class="alert alert-danger">
@@ -35,11 +45,27 @@ formControlName="firstName" required>
   </div>
 </div>
 
-<label for="email">Email: </label>
-<input id="email" type="email" formControlName="email">
+<div class="email">
+  <label class="email">Email</label>
+  <div class="control">
+    <input class="input" type="text" placeholder="Email" formControlName="email">
+  </div>
+</div>
 
-<label for="username">Username: </label>
-<input id="username" type="text" formControlName="username">
+<div *ngIf="email.invalid && (email.dirty || email.touched)"
+    class="alert alert-danger">
+
+  <div *ngIf="email.errors?.['required']">
+    Email is required.
+  </div>
+</div>
+
+<div class="username">
+  <label class="username">Username</label>
+  <div class="control">
+    <input class="input" type="text" placeholder="Username" formControlName="username">
+  </div>
+</div>
 
 <div *ngIf="username.invalid && (username.dirty || username.touched)"
     class="alert alert-danger">
@@ -55,8 +81,12 @@ formControlName="firstName" required>
   </div>
 </div>
 
-<label for="password">Password: </label>
-<input id="password" type="password" formControlName="password">
+<div class="password">
+  <label class="password">Password</label>
+  <div class="control">
+    <input class="input" type="text" placeholder="Password" formControlName="password">
+  </div>
+</div>
 <div *ngIf="password.invalid && (password.dirty || password.touched)"
     class="alert alert-danger">
 
@@ -70,32 +100,8 @@ formControlName="firstName" required>
     Password must be max 64 characters long.
   </div>
 </div>
-
-<p>Complete the form to enable button.</p>
-<button type="submit" [disabled]="!registerForm.valid">Submit</button>
-</form>
-
-<!-- <form (ngSubmit)="createUser()">
-  <input type="text" id="firstName" name="firstName" class="form-control"
-  required minlength="4" appForbiddenName="boba"
-  [(ngModel)]="userData.firstName" #name="ngModel">
-
-  <div *ngIf="name.invalid && (name.dirty || name.touched)"
-  class="alert">
-
-  <div *ngIf="name.errors?.['required']">
-  Name is required.
-  </div>
-  <div *ngIf="name.errors?.['minlength']">
-  Name must be at least 4 characters long.
-  </div>
-
+<br>
+<div class="control">
+  <button class="button is-link" [disabled]="!registerForm.valid">Shta reggggna</button>
 </div>
-  <p>Last Name</p>
-  <input type="text" name="lastName" [(ngModel)]="userData.lastName" class="form-control">
-  <p>Username</p>
-  <input type="text" name="username" [(ngModel)]="userData.username" class="form-control">
-  <p>Password</p>
-  <input type="password" name="password" [(ngModel)]="userData.password" class="form-control">
-  <input type="submit" value="Predavam se" class="form-control">
-</form> -->
+</form>
