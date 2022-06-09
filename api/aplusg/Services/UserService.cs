@@ -14,7 +14,6 @@ namespace aplusg.Services
 	public interface IUserService
 	{
 		AuthResponse Authenticate(AuthRequest model);
-		IEnumerable<User> GetAll();
 		User GetById(int id);
 	}
 	public class UserService : IUserService
@@ -26,14 +25,9 @@ namespace aplusg.Services
 			throw new NotImplementedException();
 		}
 
-		public IEnumerable<User> GetAll()
-		{
-			throw new NotImplementedException();
-		}
-
 		public User GetById(int id)
 		{
-			throw new NotImplementedException();
+			return _context.Users.Find(id);
 		}
 	}
 }

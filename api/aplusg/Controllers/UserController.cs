@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.IO;
 using System.Text.Json;
+using aplusg.Services;
+using aplusg.Data.Models;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,10 +21,12 @@ namespace aplusg.Controllers
 	public class UserController : ControllerBase
 	{
 		private readonly AplusGDbContext _context;
+		private readonly IUserService _service;
 
-		public UserController(AplusGDbContext context)
+		public UserController(AplusGDbContext context, UserService service)
 		{
 			_context = context;
+			_service = service;
 		}
 		// GET: api/<UserController>
 		[HttpGet]
@@ -55,5 +60,19 @@ namespace aplusg.Controllers
 		public void Delete(int id)
 		{
 		}
+
+		[HttpPost("authenticate")]
+		public ActionResult Authenticate(AuthRequest user)
+		{
+			var result = _service.Authenticate(user);
+			return result is null ? BadRequest(new { msg = "Username or password is not correct" }) : Ok(result);
+		}
+
+		//[Authorize]
+		//[HttpGet]
+		//public ActionResult GetUsersAuth()
+		//{
+		//	return Ok();
+		//}
 	}
 }
