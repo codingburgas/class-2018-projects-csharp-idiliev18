@@ -31,5 +31,7 @@ namespace aplusg.Models
         public string PasswordHash { get; set; }
         [JsonIgnore]
         public string Salt { get; set; }
+        public string Token { get; set; }
+        public DateTime ExpireDate { get; set; }
     }
 }

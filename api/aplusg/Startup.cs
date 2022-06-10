@@ -13,7 +13,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
-using aplusg.Services;
 
 namespace aplusg
 {
@@ -27,7 +26,7 @@ namespace aplusg
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AplusGDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
@@ -38,9 +37,6 @@ namespace aplusg
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "aplusg", Version = "v1" });
             });
-
-            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

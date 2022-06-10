@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.IO;
-using System.Text.Json;
-using aplusg.Services;
 using aplusg.Data.Models;
 using Microsoft.AspNetCore.Authorization;
+using Ng.Services;
+using aplusg.Utilities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,12 +21,10 @@ namespace aplusg.Controllers
 	public class UserController : ControllerBase
 	{
 		private readonly AplusGDbContext _context;
-		private readonly IUserService _service;
 
-		public UserController(AplusGDbContext context, UserService service)
+		public UserController(AplusGDbContext context)
 		{
 			_context = context;
-			_service = service;
 		}
 		// GET: api/<UserController>
 		[HttpGet]
@@ -64,8 +62,19 @@ namespace aplusg.Controllers
 		[HttpPost("authenticate")]
 		public ActionResult Authenticate(AuthRequest user)
 		{
-			var result = _service.Authenticate(user);
-			return result is null ? BadRequest(new { msg = "Username or password is not correct" }) : Ok(result);
+			string? secret;
+
+			var reader = new StreamReader("tokenconf.txt");
+			using (reader)
+			{
+				secret = reader.ReadLine();
+			}
+
+
+
+			var token = TokenUtilities.CreateToken(secret, user);
+
+			return secret is null ? BadRequest(new { msg = "Username or password is not correct" }) : Ok(token);
 		}
 
 		//[Authorize]
