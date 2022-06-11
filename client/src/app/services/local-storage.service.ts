@@ -15,7 +15,6 @@ export class LocalStorageService {
   }
 }
 
-
  writeToLocalStorage(key:string, data:string) {
   localStorage.setItem(key, JSON.stringify(data));
 }
