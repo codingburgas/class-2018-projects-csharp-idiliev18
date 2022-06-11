@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using aplusg.Models;
 
 namespace aplusg.Migrations
 {
     [DbContext(typeof(AplusGDbContext))]
-    partial class AplusGDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220611225033_Add table Roles")]
+    partial class AddtableRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,21 +74,6 @@ namespace aplusg.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("aplusg.Data.Models.UserRole", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("UsersRoles");
-                });
-
             modelBuilder.Entity("aplusg.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -127,25 +114,6 @@ namespace aplusg.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("aplusg.Data.Models.UserRole", b =>
-                {
-                    b.HasOne("aplusg.Data.Models.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("aplusg.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

@@ -62,6 +62,13 @@ namespace aplusg.Controllers
 		[HttpPost("authenticate")]
 		public ActionResult Authenticate(AuthRequest user)
 		{
+			var dbUser = _context.Users.First<User>(u => u.Username == user.Username);
+
+			if (dbUser is null)
+			{
+				BadRequest(new { status = "Incorrect credentials" });
+			}
+
 			string? secret;
 
 			var reader = new StreamReader("tokenconf.txt");
@@ -72,9 +79,18 @@ namespace aplusg.Controllers
 
 
 
-			var token = TokenUtilities.CreateToken(secret, user);
+			string token = TokenUtilities.CreateToken(secret, user, dbUser);
 
-			return secret is null ? BadRequest(new { msg = "Username or password is not correct" }) : Ok(token);
+			return token is null ? BadRequest(new { status = "Incorrect credentials" }) : Ok(new { 
+				status = "success",
+				token = token,
+				username = dbUser.Username,
+				firstname = dbUser.FirstName,
+				lastname = dbUser.LastName,
+				email = dbUser.Email,
+				tokenExpireDate = dbUser.ExpireDate,
+				role = _context.UsersRoles.Where(ur => ur.UserId == dbUser.Id)
+			});
 		}
 
 		//[Authorize]
