@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from 'src/app/services/authenctication.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-login-form',
+  templateUrl: './login-form.component.html',
+  styleUrls: ['./login-form.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginFormComponent implements OnInit {
 
 
   public loginForm:any;
@@ -19,6 +19,9 @@ get password() { return this.loginForm.get('password'); }
   constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+
+console.log("JIV SAM")
+
     this.loginForm= new FormGroup({
 
       username: new FormControl('',[
@@ -38,8 +41,8 @@ get password() { return this.loginForm.get('password'); }
   {
     console.log(this.username.value);
     console.log(this.username.value);
-    this.authenticationService.login(this.username.value, this.password.value)
-                              .subscribe(vurnatGei=>console.log(vurnatGei));
+     this.authenticationService.login(this.username.value, this.password.value)
+                               .subscribe(vurnatGei=>console.log(vurnatGei));
 
   }
 
