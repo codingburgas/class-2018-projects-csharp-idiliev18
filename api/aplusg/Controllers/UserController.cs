@@ -59,14 +59,14 @@ namespace aplusg.Controllers
 		{
 		}
 
-		[HttpPost("authenticate")]
+		[HttpPost("Authenticate")]
 		public ActionResult Authenticate(AuthRequest user)
 		{
-			var dbUser = _context.Users.First<User>(u => u.Username == user.Username);
+			var dbUser = _context.Users.First(u => u.Username == user.Username);
 
 			if (dbUser is null)
 			{
-				BadRequest(new { status = "Incorrect credentials" });
+				return BadRequest(new { status = "Incorrect credentials" });
 			}
 
 			string? secret;
@@ -81,16 +81,45 @@ namespace aplusg.Controllers
 
 			string token = TokenUtilities.CreateToken(secret, user, dbUser);
 
-			return token is null ? BadRequest(new { status = "Incorrect credentials" }) : Ok(new { 
+			if(token is not null)
+			{
+				var u = _context.Users.SingleOrDefault(u => u.Id == dbUser.Id);
+				if(u is not null)
+				{
+					u.Token = token;
+					u.ExpireDate = DateTime.Now.AddDays(3);	
+					_context.SaveChanges();
+				}
+			}
+
+			return token is null ? BadRequest(new { status = "Incorrect credentials" }) : Ok(new {
 				status = "success",
-				token = token,
-				username = dbUser.Username,
-				firstname = dbUser.FirstName,
-				lastname = dbUser.LastName,
-				email = dbUser.Email,
-				tokenExpireDate = dbUser.ExpireDate,
+				info = new AuthResponse(dbUser, token, DateTime.Today.AddDays(2)),
 				role = _context.UsersRoles.Where(ur => ur.UserId == dbUser.Id)
 			});
+		}
+
+		[HttpPost("Validate/Request")]
+		public ActionResult GetMe([FromBody]string token)
+		{
+			var user = _context.Users.SingleOrDefault(u => u.Token == token);
+			if(user is null)
+			{
+				return BadRequest(new { status = "Token invalid" });
+			}
+
+			if (user.ExpireDate < DateTime.Now)
+			{
+				return BadRequest(new { status = "Token invalid" });
+			}
+
+			return Ok(new
+			{
+				status = "success",
+				info = new AuthResponse(user, token, user.ExpireDate),
+				role = _context.UsersRoles.Where(ur => ur.UserId == user.Id)
+			});
+
 		}
 
 		//[Authorize]
