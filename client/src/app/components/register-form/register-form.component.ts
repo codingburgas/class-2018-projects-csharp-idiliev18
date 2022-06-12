@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { User } from 'src/app/interfaces/user';
+import { User } from '../../models/user';
 import { RegisterService } from './../../services/register.service';
 
 @Component({
@@ -42,7 +42,7 @@ export class RegisterFormComponent {
   get password() { return this.registerForm.get('password'); }
 
   users: User[] = [];
-  
+
   constructor(private registerService: RegisterService) {}
 
   onSubmit() {
@@ -90,7 +90,7 @@ export class RegisterFormComponent implements OnInit {
     password: '',
   }
 
- 
+
 
   createUser():void
   {
@@ -101,7 +101,7 @@ export class RegisterFormComponent implements OnInit {
 
   }
 
-  
+
 
   ngOnInit(): void {
   }
