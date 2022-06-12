@@ -1,8 +1,11 @@
-//import { LocalStorageService } from './local-storage.service';
+import { Router } from '@angular/router';
+import { LocalStorageService } from './local-storage.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
-import { User } from '../interfaces/user';
+import { User } from '../models/user';
+import { Observable } from 'rxjs';
+
 
 
 @Injectable({
@@ -10,19 +13,36 @@ import { User } from '../interfaces/user';
 })
 export class AuthenticationService {
 
+  public user: Observable<User>;
+  public isLoggedIn:boolean = false;
 
   constructor(
     private http: HttpClient,
-    //private localStorage: LocalStorageService
+    private localStorage: LocalStorageService,
+    private route: Router
     ) {
-     // this.userSubject = new BehaviorSubject<User>(JSON.parse("{toke:\"sdffdsdsfds\"}"));
-     // this.user = this.userSubject.asObservable();
+
     }
 
-    login(username: string, password: string) {
+    login(username: string, password: string) : Observable<User> {
       console.log("KOLQ MISHKI")
-      return this.http.post<any>(`http://localhost:3000/auth`, { username, password })
-  }
+      return this.http.post<any>(`http://localhost:3000/auth`, { username, password }).pipe(map(res => {
+        // store user details and jwt token in local storage to keep user logged in between page refreshes
+
+        if(res.status == "success")
+        {
+          this.localStorage.writeToLocalStorage('user', JSON.stringify(res.token));
+          this.isLoggedIn = true;
+          this.user = res;
+          this.route.navigate(['/dashboard']);
+          return res;
+        }
+    }));
+
+    };
+
+
+
 
   //public get userValue(): User {
    // return this.userSubject.value;
@@ -30,10 +50,11 @@ export class AuthenticationService {
 
   logout():void {
     // remove user from local storage to log user out
-    //localStorage.removeItem('user');
+    localStorage.removeItem('user');
     //this.userSubject.next(null!);
+    this.isLoggedIn = false;
     console.log('Logvai sa')
-    //this.router.navigate(['/login']);
+
 }
 
 }
