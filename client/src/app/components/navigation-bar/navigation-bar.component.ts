@@ -1,3 +1,4 @@
+import { LocalStorageService } from './../../services/local-storage.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authenctication.service';
 import { User } from '../../models/user';
@@ -11,14 +12,19 @@ export class NavigationBarComponent implements OnInit {
 
 
 
-  constructor(public authenticationService: AuthenticationService) { }
+  constructor(public authenticationService: AuthenticationService, public localStorageService: LocalStorageService) { }
 
 
   ngOnInit() {
-    if(this.authenticationService.isLoggedIn)
-    {
-      console.log(this.authenticationService.user);
-    }
+
+  }
+
+  isAuthenticated():boolean
+  {
+    console.log("kkkkkkk")
+    var r = this.authenticationService.validateToken(this.localStorageService.readFromLocalStorage("user"));
+    console.log(r)
+    return  r;
   }
 
   logout()

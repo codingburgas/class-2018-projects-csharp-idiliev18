@@ -28,7 +28,7 @@ export class AuthenticationService {
       console.log("KOLQ MISHKI")
       return this.http.post<any>(`http://localhost:3000/auth`, { username, password }).pipe(map(res => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
-
+        console.log(res)
         if(res.status == "success")
         {
           this.localStorage.writeToLocalStorage('user', JSON.stringify(res.token));
@@ -38,8 +38,32 @@ export class AuthenticationService {
           return res;
         }
     }));
+    }
 
-    };
+
+    validateToken(token:string) : any{
+      console.log("VALIDIRAM", token);
+      this.http.post<any>(`http://localhost:25825/api/User/Validate/Request`, {  token }).pipe(map(res => {
+        console.log(res);
+        if(res.status == "success")
+        {
+
+          this.localStorage.writeToLocalStorage('user', JSON.stringify(res.token));
+          this.isLoggedIn = true;
+          this.user = res.info;
+          return true;
+        }
+
+        return false;
+      }));
+    }
+
+
+
+
+
+
+
 
 
 
