@@ -11,6 +11,7 @@ using aplusg.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Ng.Services;
 using aplusg.Utilities;
+using System.Text;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -37,6 +38,7 @@ namespace aplusg.Controllers
 		[HttpGet("{id}")]
 		public async Task<ActionResult<User>> Get(int id)
 		{
+
 			User user = await _context.Users.FindAsync(id);
 
 			return (user is not null) ? user : NotFound();
@@ -94,15 +96,29 @@ namespace aplusg.Controllers
 
 			return token is null ? BadRequest(new { status = "Incorrect credentials" }) : Ok(new {
 				status = "success",
-				info = new AuthResponse(dbUser, token, DateTime.Today.AddDays(2)),
+				//info = new AuthResponse(dbUser, token, DateTime.Today.AddDays(2)),
 				role = _context.UsersRoles.Where(ur => ur.UserId == dbUser.Id)
 			});
 		}
 
-		[HttpPost("Validate/Request")]
-		public ActionResult GetMe([FromBody]string token)
+		[HttpGet("Validate/Request")]
+		public ActionResult GetMe()
 		{
-			var user = _context.Users.SingleOrDefault(u => u.Token == token);
+			var HTTPcontext = HttpContext.Request.PathBase;
+			string authorization = this.HttpContext.Request.Headers["Authorization"];
+			string decAuthToken;
+			if (authorization != null && authorization.StartsWith("Bearer"))
+			{
+				//Extract credentials
+				string authToken = authorization.Substring("Bearer ".Length).Trim();
+				decAuthToken = authToken;
+			}
+			else
+			{
+				//Handle what happens if that isn't the case
+				throw new Exception("The authorization header is either empty or isn't Basic.");
+			}
+			var user = _context.Users.SingleOrDefault(u => u.Token == decAuthToken);
 			if(user is null)
 			{
 				return BadRequest(new { status = "Token invalid" });
@@ -116,7 +132,7 @@ namespace aplusg.Controllers
 			return Ok(new
 			{
 				status = "success",
-				info = new AuthResponse(user, token, user.ExpireDate),
+				info = new AuthResponse(user, decAuthToken, user.ExpireDate),
 				role = _context.UsersRoles.Where(ur => ur.UserId == user.Id)
 			});
 

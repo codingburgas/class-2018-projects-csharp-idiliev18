@@ -1,0 +1,36 @@
+<div class="alert alert-success" role="alert">
+  Login component!
+</div>
+
+<button
+  class="btn btn-outline-warning"
+  (click)="login(Role.User)">Login as User</button>
+
+<button
+  class="btn btn-outline-danger"
+  (click)="login(Role.Admin)">Login as Admin</button>
+
+  <p>LOGQSHA form works!</p>
+  <form [formGroup]="loginForm" (ngSubmit)="login()" >
+    <!-- " -->
+
+    <div class="username">
+      <label class="username">Username</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="Username" formControlName="username">
+      </div>
+    </div>
+
+    <div class="password">
+      <label class="password">Password</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="Password" formControlName="password">
+      </div>
+    </div>
+
+    <br>
+    <div class="control">
+      <button class="button is-link">Vlez v men da kradesh</button>
+    </div>
+
+    </form>
