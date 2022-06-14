@@ -48,6 +48,36 @@ namespace aplusg.Controllers
 			return CreatedAtAction("PostLightSensor", new { id = lightSensor.Id }, lightSensor);
 		}
 
+		// PUT: api/LightSensor/5
+		[HttpPut("{id}")]
+		public async Task<ActionResult> UpdateLightSensor(int id, LightSensor lightSensor)
+		{
+			if (id != lightSensor.Id)
+			{
+				return BadRequest();
+			}
+
+			_context.Entry(lightSensor).State = EntityState.Modified;
+
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!_context.LightSensors.Any(ls => id == ls.Id))
+				{
+					return NotFound();
+				}
+				else
+				{
+					throw;
+				}
+			}
+
+			return NoContent();
+		}
+
 		// DELETE api/<LightSensorController>/5
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete(int id)

@@ -23,14 +23,14 @@ namespace aplusg.Controllers
 			_context = context;
 		}
 
-		// GET: api/<LightSensorController>
+		// GET: api/<MoistureSensorController>
 		[HttpGet]
 		public async Task<ActionResult<IEnumerable<MoistureSensor>>> GetAll()
 		{
 			return await _context.MoistureSensors.ToListAsync();
 		}
 
-		// GET api/<LightSensorController>/5
+		// GET api/<MoistureSensorController>/5
 		[HttpGet("{id}")]
 		public async Task<ActionResult<MoistureSensor>> Get(int id)
 		{
@@ -46,6 +46,36 @@ namespace aplusg.Controllers
 			await _context.SaveChangesAsync();
 
 			return CreatedAtAction("PostMoistureSensor", new { id = moistureSensor.Id }, moistureSensor);
+		}
+
+		// PUT: api/MoistureSensor/5
+		[HttpPut("{id}")]
+		public async Task<ActionResult> UpdateMoistureSensor(int id, MoistureSensor moistureSensor)
+		{
+			if (id != moistureSensor.Id)
+			{
+				return BadRequest();
+			}
+
+			_context.Entry(moistureSensor).State = EntityState.Modified;
+
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!_context.MoistureSensors.Any(ms => id == ms.Id))
+				{
+					return NotFound();
+				}
+				else
+				{
+					throw;
+				}
+			}
+
+			return NoContent();
 		}
 
 		// DELETE api/<ValuesController>/5
