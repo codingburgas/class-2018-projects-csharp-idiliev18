@@ -24,6 +24,11 @@ export class AppComponent implements OnInit {
     return this.authService.hasRole(Role.Admin);
   }
 
+  get isGardener() {
+    return this.authService.hasRole(Role.Gardener);
+  }
+
+
   logout() {
     this.authService.logout();
     this.router.navigate(['login']);

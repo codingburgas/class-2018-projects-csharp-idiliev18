@@ -1,0 +1,271 @@
+body {
+  font-family: "Roboto Slab", serif;
+  line-height: 1.25;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  border: 1px solid black;
+  border-collapse: collapse;
+  background-color: #79e07e;
+}
+
+.tableData {
+  pointer-events: none;
+}
+
+th {
+  user-select: none;
+  cursor: pointer;
+}
+
+td,
+th {
+  border: 1px solid black;
+}
+
+
+@media screen and (min-width: 1258px) {
+  .tableData {
+      pointer-events: all;
+  }
+
+  table {
+      margin: 0;
+      padding: 0;
+  }
+
+  table tr {
+      padding: 0.35em;
+  }
+
+  table th,
+  table td {
+      padding: 0.625em;
+      text-align: center;
+  }
+
+  table th {
+      font-size: 0.95em;
+      letter-spacing: 0.1em;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .tableData {
+      pointer-events: all;
+  }
+  table {
+      border: 0;
+  }
+
+  table caption {
+      font-size: 1.3em;
+  }
+
+  table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+  }
+
+  table tr {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      margin-bottom: 0.625em;
+  }
+
+  table td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: 2em;
+      text-align: right;
+  }
+
+  table td::before {
+      /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+  }
+
+  table td:last-child {
+      border-bottom: 0;
+  }
+}
+
+@media screen and (max-width: 548px) {
+  table {
+      /* color:red; */
+      border: 0;
+  }
+  .tableData {
+      pointer-events: all;
+  }
+  table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      width: 1px;
+  }
+
+  table tr {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      margin-bottom: 1em;
+  }
+
+  table td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: 1.5em;
+      text-align: right;
+  }
+
+  table td::before {
+      /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+  }
+
+  table td:last-child {
+      border-bottom: 0;
+  }
+
+  table td::before {
+      /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+  }
+
+  table td:last-child {
+      border-bottom: 0;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  table {
+      /* color:red; */
+      border: 0;
+  }
+  .tableData {
+      pointer-events: all;
+  }
+  table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      width: 1px;
+  }
+
+  table tr {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      margin-bottom: 1em;
+  }
+
+  table td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: 1em;
+      text-align: right;
+  }
+
+  table td::before {
+      /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+  }
+
+  table td:last-child {
+      border-bottom: 0;
+  }
+}
+
+@media screen and (max-width: 209px) {
+  table {
+      /* color:red; */
+      border: 0;
+  }
+  .tableData {
+      pointer-events: all;
+  }
+  table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      width: 1px;
+  }
+
+  table tr {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      margin-bottom: 1em;
+  }
+
+  table td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: 0.7em;
+      text-align: right;
+  }
+
+  table td::before {
+      /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+  }
+
+  table td:last-child {
+      border-bottom: 0;
+  }
+}
+
+.btn {
+  background-color: #79e07e;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #4fc755;
+}
+@media screen and (min-width: 1401px) {
+  .tableData {
+      pointer-events: none;
+  }
+}

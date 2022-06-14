@@ -27,7 +27,8 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginComponent
-      }
+      },
+
     ]
   },
   {
@@ -37,6 +38,8 @@ const routes: Routes = [
     data: {
       roles: [
         Role.Admin,
+        Role.Gardener,
+        Role.User
       ]
     },
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)

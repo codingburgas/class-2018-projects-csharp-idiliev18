@@ -1,0 +1,26 @@
+<br>
+<br>
+<br>
+
+<h1>MOISTURE</h1>
+<div *ngFor="let item of humiditySensors" class="card" style="width: 18rem;">
+  <img src="https://electropeak.com/pub/media/catalog/product/cache/fa232c603e0403143aafcf902b42df2f/_/s/_s_e_sen-10-037-1.jpg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Moisture Sensor Id: {{item.id}}</h5>
+    <p class="card-text">Moisture Sensor Value: {{item.currentMoistureValue}}</p>
+    <p class="card-text">Date: {{item.date}}</p>
+    <a *ngIf="isAdmin" href="#" class="btn btn-primary">Edit</a>
+  </div>
+</div>
+
+
+<h1>LIGHT</h1>
+<div *ngFor="let item of lightSensors" class="card" style="width: 18rem;">
+  <img src="https://cdn2.botland.store/98750-large_default/light-sensor-ldr-resistive-for-arduino-okystar.jpg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">Moisture Sensor Id: {{item.id}}</h5>
+    <p class="card-text">Moisture Sensor Value: {{item.currentLightValue}}</p>
+    <p class="card-text">Date: {{item.date}}</p>
+    <a *ngIf="isAdmin" href="#" class="btn btn-primary">Edit</a>
+  </div>
+</div>

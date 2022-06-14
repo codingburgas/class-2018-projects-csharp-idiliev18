@@ -31,6 +31,7 @@ export class AuthService {
       this.http.post<any>(`http://localhost:25825/api/User/Authenticate`, { username, password }).subscribe(res=>{
 
         this.user = {
+          id: res.role[0].user.id,
           firstName: res.role[0].user.firstName,
           lastName : res.role[0].user.lastName,
           username: res.role[0].user.username,

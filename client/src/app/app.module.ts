@@ -13,6 +13,7 @@ import { AuthService } from './services/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     NotFoundComponent,
     LoginComponent,
     UserDirective,
-    UserRoleDirective
+    UserRoleDirective,
   ],
   imports: [
     BrowserModule,
