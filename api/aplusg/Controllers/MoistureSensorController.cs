@@ -39,21 +39,29 @@ namespace aplusg.Controllers
 		}
 
 		// POST api/<ValuesController>
-		[HttpPost]
-		public void Post([FromBody] string value)
+		[HttpPost("Create")]
+		public async Task<ActionResult> PostMoistureSensor([FromBody] MoistureSensor moistureSensor)
 		{
-		}
+			_context.MoistureSensors.Add(moistureSensor);
+			await _context.SaveChangesAsync();
 
-		// PUT api/<ValuesController>/5
-		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
-		{
+			return CreatedAtAction("PostMoistureSensor", new { id = moistureSensor.Id }, moistureSensor);
 		}
 
 		// DELETE api/<ValuesController>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public async Task<IActionResult> Delete(int id)
 		{
+			var moistureSensor = await _context.MoistureSensors.FindAsync(id);
+			if (moistureSensor == null)
+			{
+				return NotFound();
+			}
+
+			_context.MoistureSensors.Remove(moistureSensor);
+			await _context.SaveChangesAsync();
+
+			return NoContent();
 		}
 	}
 }

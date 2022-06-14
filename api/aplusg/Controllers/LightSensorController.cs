@@ -40,15 +40,28 @@ namespace aplusg.Controllers
 
 		// POST api/<LightSensorController>
 		[HttpPost("Create")]
-		public ActionResult Post([FromBody] LightSensor lightSensor)
+		public async Task<ActionResult> PostLightSensor([FromBody] LightSensor lightSensor)
 		{
-			return Ok();
+			_context.LightSensors.Add(lightSensor);
+			await _context.SaveChangesAsync();
+
+			return CreatedAtAction("PostLightSensor", new { id = lightSensor.Id }, lightSensor);
 		}
 
 		// DELETE api/<LightSensorController>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public async Task<IActionResult> Delete(int id)
 		{
+			var lightSensor = await _context.LightSensors.FindAsync(id);
+			if (lightSensor == null)
+			{
+				return NotFound();
+			}
+
+			_context.LightSensors.Remove(lightSensor);
+			await _context.SaveChangesAsync();
+
+			return NoContent();
 		}
 	}
 }
