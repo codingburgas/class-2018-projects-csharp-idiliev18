@@ -1,37 +1,39 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-
-
-
+import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './components/app/app.component';
-import { RegisterFormComponent } from './components/register-form/register-form.component';
-import { LoginFormComponent } from './components/login-form/login-form.component';
-import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { LandingComponent } from './components/landing/landing.component';
+import { AppComponent } from './app/app.component';
+import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
+import { NotFoundComponent } from './error/not-found/not-found.component';
+import { LoginComponent } from './login/login.component';
+import { UserRoleDirective } from './directives/user-role.directive';
+import { UserDirective } from './directives/user.directive';
+import { AuthService } from './services/auth.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterFormComponent,
-    LoginFormComponent,
-    NavigationBarComponent,
-    DashboardComponent,
-    LandingComponent,
-
+    HomeComponent,
+    ProfileComponent,
+    NotFoundComponent,
+    LoginComponent,
+    UserDirective,
+    UserRoleDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  exports: [
+    UserDirective,
+    UserRoleDirective
+  ],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
