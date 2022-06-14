@@ -55,11 +55,20 @@ namespace aplusg.Controllers
 
 		}
 
-		// DELETE api/<UserController>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
-		{
-		}
+public async Task<ActionResult> Delete(int id)
+{
+var user = await _context.Users.FindAsync(id);
+if (user == null)
+{
+return NotFound(new { message = "User not found" });
+}
+
+_context.Users.Remove(user);
+await _context.SaveChangesAsync();
+
+return NoContent();
+}
 
 		[HttpPost("Authenticate")]
 		public ActionResult Authenticate(AuthRequest user)
@@ -73,11 +82,11 @@ namespace aplusg.Controllers
 				string authToken = authorization.Substring("Basic ".Length).Trim();
 				Encoding encoding = Encoding.GetEncoding("iso-8859-1");
 				string decAuthToken = encoding.GetString(Convert.FromBase64String(authToken));
-			}
+			} 
 			else
 			{
 				//Handle what happens if that isn't the case
-				throw new Exception("The authorization header is either empty or isn't Basic.");
+				//throw new Exception("The authorization header is either empty or isn't Basic.");
 			}
 
 			var dbUser = _context.Users.First(u => u.Username == user.Username);
