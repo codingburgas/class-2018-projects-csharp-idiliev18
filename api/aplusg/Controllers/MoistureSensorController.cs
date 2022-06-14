@@ -54,7 +54,7 @@ namespace aplusg.Controllers
 		{
 			if (id != moistureSensor.Id)
 			{
-				return BadRequest();
+				return BadRequest(new { message = "Invalid moisture sensor" });
 			}
 
 			_context.Entry(moistureSensor).State = EntityState.Modified;
@@ -67,7 +67,7 @@ namespace aplusg.Controllers
 			{
 				if (!_context.MoistureSensors.Any(ms => id == ms.Id))
 				{
-					return NotFound();
+					return NotFound(new { message = "Moisture sensor not found" });
 				}
 				else
 				{
@@ -85,7 +85,7 @@ namespace aplusg.Controllers
 			var moistureSensor = await _context.MoistureSensors.FindAsync(id);
 			if (moistureSensor == null)
 			{
-				return NotFound();
+				return NotFound(new { message = "Moisture sensor not found" });
 			}
 
 			_context.MoistureSensors.Remove(moistureSensor);

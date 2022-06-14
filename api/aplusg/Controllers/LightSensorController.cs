@@ -54,7 +54,7 @@ namespace aplusg.Controllers
 		{
 			if (id != lightSensor.Id)
 			{
-				return BadRequest();
+				return BadRequest(new { message = "Invalid light sensor" });
 			}
 
 			_context.Entry(lightSensor).State = EntityState.Modified;
@@ -67,7 +67,7 @@ namespace aplusg.Controllers
 			{
 				if (!_context.LightSensors.Any(ls => id == ls.Id))
 				{
-					return NotFound();
+					return NotFound(new { message = "Light sensor not found" });
 				}
 				else
 				{
@@ -85,7 +85,7 @@ namespace aplusg.Controllers
 			var lightSensor = await _context.LightSensors.FindAsync(id);
 			if (lightSensor == null)
 			{
-				return NotFound();
+				return NotFound(new { message = "Light sensor not found" });
 			}
 
 			_context.LightSensors.Remove(lightSensor);
