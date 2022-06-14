@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using aplusg.Models;
 
 namespace aplusg.Migrations
 {
     [DbContext(typeof(AplusGDbContext))]
-    partial class AplusGDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220613205832_Add navigation properties")]
+    partial class Addnavigationproperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

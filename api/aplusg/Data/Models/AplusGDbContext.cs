@@ -26,5 +26,6 @@ namespace aplusg.Models
 		public DbSet<MoistureSensor> MoistureSensors { get; set; }
 		public DbSet<Role> Roles { get; set; }
 		public DbSet<UserRole> UsersRoles { get; set; }
+		public DbSet<Plant> Plants { get; set; }
 	}
 }

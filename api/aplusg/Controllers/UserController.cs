@@ -11,6 +11,8 @@ using aplusg.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Ng.Services;
 using aplusg.Utilities;
+using Microsoft.AspNetCore.Http;
+using System.Text;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -62,6 +64,22 @@ namespace aplusg.Controllers
 		[HttpPost("Authenticate")]
 		public ActionResult Authenticate(AuthRequest user)
 		{
+			var HTTPcontext = HttpContext.Request.PathBase;
+			string authorization = this.HttpContext.Request.Headers["Authorization"];
+
+			if (authorization != null && authorization.StartsWith("Basic"))
+			{
+				//Extract credentials
+				string authToken = authorization.Substring("Basic ".Length).Trim();
+				Encoding encoding = Encoding.GetEncoding("iso-8859-1");
+				string decAuthToken = encoding.GetString(Convert.FromBase64String(authToken));
+			}
+			else
+			{
+				//Handle what happens if that isn't the case
+				throw new Exception("The authorization header is either empty or isn't Basic.");
+			}
+
 			var dbUser = _context.Users.First(u => u.Username == user.Username);
 
 			if (dbUser is null)
@@ -121,12 +139,5 @@ namespace aplusg.Controllers
 			});
 
 		}
-
-		//[Authorize]
-		//[HttpGet]
-		//public ActionResult GetUsersAuth()
-		//{
-		//	return Ok();
-		//}
 	}
 }
