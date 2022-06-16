@@ -1,0 +1,70 @@
+<br>
+<br>
+<br>
+<br>
+
+
+<table>
+  <thead>
+      <tr>
+          <th scope="col" (click)="sortEmployees('id')">{{ header.id }}</th>
+          <th scope="col" (click)="sortEmployees('firstName')">
+              {{ header.firstName }}
+          </th>
+
+          <th scope="col" (click)="sortEmployees('lastName')">
+              {{ header.lastName }}
+          </th>
+
+          <th scope="col" (click)="sortEmployees('username')">
+            {{ header.username }}
+         </th>
+
+          <th scope="col" (click)="sortEmployees('email')">
+          {{ header.email }}
+         </th>
+
+
+          <th style="cursor: default" scope="col" (dblclick)="deleteAllEmployees()">Actions</th>
+      </tr>
+  </thead>
+  <tbody *ngFor="let item of users" >
+      <tr class="tableData">
+          <td [attr.data-label]="header.id" (click)="sortEmployees('id')">
+              {{ item.id }}
+          </td>
+          <td
+              [attr.data-label]="header.firstName"
+              (click)="sortEmployees('firstName')"
+          >
+              {{ item.firstName }}
+          </td>
+
+          <td
+              [attr.data-label]="header.lastName"
+              (click)="sortEmployees('lastName')"
+          >
+              {{ item.lastName }}
+          </td>
+
+          <td
+          [attr.data-label]="header.username"
+          (click)="sortEmployees('username')"
+          >
+          {{ item.username }}
+          </td>
+
+          <td
+          [attr.data-label]="header.email"
+          (click)="sortEmployees('username')"
+          >
+          {{ item.email }}
+          </td>
+          <td>
+            <button style="pointer-events: all" class="btn" (click)="deleteEmployee(item.id)">
+                <i class="fa fa-trash"></i> Delete
+            </button>
+        </td>
+      </tr>
+  </tbody>
+</table>
